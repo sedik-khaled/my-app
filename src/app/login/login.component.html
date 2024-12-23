@@ -1,0 +1,31 @@
+<p>login works!</p>
+<form [formGroup]="loginform" (ngSubmit)="submitlogin(loginform)">
+<div class="form-floating mb-3">
+    <input type="email" class="form-control" id="email" placeholder="name@example.com"
+    maxlength="40"
+    formControlName="email">
+         <div class="alert alert-danger" *ngIf="loginform.get('email')?.errors && loginform.get('email')?.touched" >
+        <p  *ngIf="loginform.get('email')?.getError('required')"> email IS REQUIRED</p>
+        <p  *ngIf="loginform.get('email')?.getError('minlength')">minlength is 3 characters</p>
+        <p  *ngIf="loginform.get('email')?.getError('email')">this email is not valid</p>
+        <!-- <p *ngIf="loginform.get('email')?.getError('maxlength')">max length is 40 characters</p> -->
+    </div>
+    <label for="email">Email address</label>
+  </div>
+  <div class="form-floating">
+    <input  [type]="showpassword?'text':'password' "class="form-control" id="password" placeholder="Password"
+    formControlName="password"
+    maxlength="20">
+   <button type="button" class="btn btn-primary" (click)="disappearpassword()">show pass</button>
+   <div class="alert alert-danger" *ngIf="loginform.get('password')?.errors && loginform.get('password')?.touched">
+        <p  *ngIf="loginform.get('password')?.getError('required')"> password IS REQUIRED</p>
+        <p  *ngIf="loginform.get('password')?.getError('minlength')">minlength is 3 characters</p>
+        <p  *ngIf="loginform.get('password')?.getError('maxlength')">length is 20 characters</p>
+        <p  *ngIf="loginform.get('password')?.getError('pattern')">passwd is not valid</p>
+    </div>
+    
+    <small class="text-danger">follow this pattern :(from 0-9) repeat  from 3 to 8 times then (a to z) repeat  from 3 to 8 times</small>
+    <label for="password">Password</label>
+  </div>
+  <button type="submit" [disabled]="loginform.invalid" class="btn btn-primary mt-3">Login</button>
+</form>
